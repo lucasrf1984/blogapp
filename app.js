@@ -7,14 +7,16 @@ const app = express()
 const admin = require("./routes/admin")
 const flash = require('connect-flash')
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const path = require('path')
 
 
 //Configurações
 
     //Sessao
+    app.use(cookieParser('test123'));
     app.use(session({
-        secret: "test123",
+       secret: "test123",
         resave: true,
         saveUninitialized: true
     }))
@@ -24,7 +26,7 @@ const path = require('path')
     app.use((req, res, next) => {
         res.locals.success_msg = req.flash("success_msg")
         res.locals.error_msg = req.flash("error_msg")
-        next()
+       next()
     })
 
     //BodyParser
@@ -59,3 +61,5 @@ const webport = 8081
 app.listen(webport,() => {
     console.log("Server running, listening on port: "+webport);
 })
+
+module.exports = app

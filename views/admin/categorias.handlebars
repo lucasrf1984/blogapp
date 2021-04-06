@@ -2,9 +2,17 @@
 <hr>
 <a href="/admin/categorias/add"><button class="btn btn-success">Nova Categoria</button></a>
 <hr>
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
 {{#each categorias}}
 
-<div class="card">
+		 <div class="card">
   <div class="card-body">
     <h4>{{nome}}</h4>
     <small>ID: {{_id}}</small>
@@ -12,7 +20,8 @@
     <small>Slug: {{slug}}</small>
     <br>
     <small>Data de criação: {{date}}</small>
-    <a href="/admin/categorias/delete/{{_id}}"><button class="btn btn-success">Delete</button></a>
+    <a href="/admin/categorias/delete/{{_id}}"><button class="btn btn-danger">Delete</button></a>
+    <a href="/admin/categorias/update/{{_id}}"><button class="btn btn-success">Atualizar</button></a>
   </div>
 </div>
 

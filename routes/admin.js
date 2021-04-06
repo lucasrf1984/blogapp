@@ -32,16 +32,44 @@ router.post('/categorias/save', (req,res)=>{
     }
     new Categoria(novaCategoria).save().then(()=> {
         req.flash("success_msg", "Categoria inserida com sucesso!!!")
+        res.redirect('/admin/categorias')
     }).catch((err)=> {
         console.log("Erro ao criar nova categoria. "+err)
+        res.redirect('/admin/categorias/add')
     })
 })
 
 router.get('/categorias/delete/:_id', (req, res) => {
     Categoria.deleteOne(req.params.id).then(()=> {
         req.flash("success_msg", "Categoria removido com sucesso!!!")
+        res.redirect('/admin/categorias')
       }).catch((erro)=> {
         req.flash("error_msg", "Erro ao remover categoria!!!"+erro)
+        res.redirect('/admin/categorias')
       })
 })
+
+router.get('/categorias/update/:_id', (req, res) => {
+    Categoria.findById(req.params.id).then(()=> {
+        res.redirect('/admin/editcategorias')
+      }).catch((erro)=> {
+        req.flash("error_msg", "Erro ao remover categoria!!!"+erro)
+        res.redirect('/admin/categorias')
+      })
+})
+
+router.post('/categorias/update', (req,res)=>{
+    const updateCategoria = {
+        nome: req.body.nome,
+        slug: req.body.slug
+    }
+    new Categoria(updateCategoria).updateOne().then(()=> {
+        req.flash("success_msg", "Categoria atualizada com sucesso!!!")
+        res.redirect('/admin/categorias')
+    }).catch((err)=> {
+        console.log("Erro ao atualizar categoria. "+err)
+        res.redirect('/admin/categorias/add')
+    })
+})
+
 module.exports = router
