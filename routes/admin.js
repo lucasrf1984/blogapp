@@ -31,17 +31,17 @@ router.post('/categorias/save', (req,res)=>{
         slug: req.body.slug
     }
     new Categoria(novaCategoria).save().then(()=> {
-        res.render('admin/categorias')
+        req.flash("success_msg", "Categoria inserida com sucesso!!!")
     }).catch((err)=> {
         console.log("Erro ao criar nova categoria. "+err)
     })
 })
 
 router.get('/categorias/delete/:_id', (req, res) => {
-    categorias.destroy({where: {'_id': req.params._id}}).then(()=> {
-        res.render('admin/categorias', {categorias: categorias.map(categorias => categorias.toJSON())})
+    Categoria.deleteOne(req.params.id).then(()=> {
+        req.flash("success_msg", "Categoria removido com sucesso!!!")
       }).catch((erro)=> {
-        res.send("Não foi possivel remover o registro selecionado!!!"+erro);
+        req.flash("error_msg", "Erro ao remover categoria!!!"+erro)
       })
 })
 module.exports = router
