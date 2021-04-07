@@ -49,11 +49,11 @@ router.get('/categorias/delete/:_id', (req, res) => {
       })
 })
 
-router.get('/categorias/update/:_id', (req, res) => {
-    Categoria.findById(req.params.id).then(()=> {
-        res.redirect('/admin/editcategorias')
+router.get('/categorias/update/:id', (req, res) => {
+    Categoria.findOne({_id:req.params.id}).then((categorias)=> {
+        res.render('admin/editcategorias', {categorias: categorias.toJSON()})
       }).catch((erro)=> {
-        req.flash("error_msg", "Erro ao remover categoria!!!"+erro)
+        req.flash("error_msg", "Erro ao atualizar categoria!!!"+erro)
         res.redirect('/admin/categorias')
       })
 })
