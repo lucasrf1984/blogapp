@@ -59,17 +59,33 @@ router.get('/categorias/update/:id', (req, res) => {
 })
 
 router.post('/categorias/update', (req,res)=>{
-    const updateCategoria = {
-        nome: req.body.nome,
-        slug: req.body.slug
-    }
-    new Categoria(updateCategoria).updateOne().then(()=> {
-        req.flash("success_msg", "Categoria atualizada com sucesso!!!")
-        res.redirect('/admin/categorias')
+
+    Categoria.findOne({_id: req.body.id}).then((categorias) => {
+
+        console.log(categorias.nome)
+        console.log(categorias.slug)
+
+        categorias.nome = req.body.nome
+        categorias.slug = req.body.slug
+
+        categorias.save().then(()=> {
+            req.flash("success_msg", "Categoria atualizada com sucesso!!!")
+            res.redirect('/admin/categorias')
     }).catch((err)=> {
-        console.log("Erro ao atualizar categoria. "+err)
-        res.redirect('/admin/categorias/add')
+        req.flash("error_msg", "Erro ao atualizar a categoria!!!")
+        res.redirect('/admin/categorias')
+        
     })
+    })
+})
+
+router.get('/categorias/detail/:id', (req, res) => {
+    Categoria.findOne({_id:req.params.id}).then((categorias)=> {
+        res.render('admin/detailcategorias', {categorias: categorias.toJSON()})
+      }).catch((erro)=> {
+        req.flash("error_msg", "Erro ao abrir detalhes da categoria!!!"+erro)
+        res.redirect('/admin/categorias')
+      })
 })
 
 module.exports = router
