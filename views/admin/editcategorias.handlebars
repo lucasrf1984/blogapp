@@ -8,7 +8,8 @@
 <div class="card">
   <div class="card-body">
     <h2>Atualizar Categoria</h2>
-<form action="/admin/categorias/update" method="post">
+<form action="/admin/categorias/update" method="post"name="dados"
+onSubmit="return enviardados();">
 <input type="hidden" name="id" value="{{categorias._id}}">
 <label for="Nome">Nome:</label>
     <input type="text" id="nome" name="nome" placeholder="Nome da categoria" class="form-control" value="{{categorias.nome}}"> 
@@ -19,3 +20,25 @@
 </form>
   </div>
 </div>
+
+<script language="JavaScript" >
+
+function enviardados(){
+
+if (document.dados.nome.value=="" || document.dados.nome.value.length < 3)
+{
+alert( "Preencha campo NOME corretamente!" );
+document.dados.nome.focus();
+return false;
+}
+
+if(document.dados.slug.value=="" ||
+document.dados.slug.value.length < 3)
+{
+alert( "Preencha campo Slug corretamente!" );
+document.dados.slug.focus();
+return false;
+}
+return true;
+}
+</script>

@@ -1,0 +1,78 @@
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+    
+<div class="card">
+  <div class="card-body">
+    <h2>Editar Postagem</h2>
+<form action="/postagem/save" method="post" name="dados"
+onSubmit="return enviardados();">
+<label for="Nome">Titulo:</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Titulo da postagem" class="form-control" value="{{posts.titulo}}"> 
+<label for="slug">Slug:</label>
+    <input type="text" id="slug" name="slug" placeholder="Slug da postagem" class="form-control" value="{{posts.slug}}"> 
+    <br>
+    <label for="Descricao">Descrição:</label>
+    <input type="text" id="descricao" name="descricao" placeholder="Descrição da postagem" class="form-control" value="{{posts.descricao}}"> 
+    <br>
+    <label for="Categoria">Categoria:</label>
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="categoria" >
+       {{#each categorias}}
+      <option value="{{_id}}">{{nome}}</option>
+      {{else}}
+      <option value=""> Nenhuma categoria registrada</option>}
+      {{/each}}
+      </select>
+    <br>
+    <label for="Conteudo">Conteudo:</label>
+    <div class="form-floating">
+      <textarea name="conteudo" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" value="{{posts.conteudo}}"></textarea>
+    </div>
+    <hr>
+<button type="submit" class="btn btn-success">Salvar</button>
+</form>
+  </div>
+</div>
+<script language="JavaScript" >
+
+function enviardados(){
+
+if (document.dados.titulo.value=="" ||
+ document.dados.titulo.value.length < 3)
+{
+alert( "Preencha campo Titulo corretamente!" );
+document.dados.titulo.focus();
+return false;
+}
+
+if(document.dados.slug.value=="" ||
+document.dados.slug.value.length < 3)
+{
+alert( "Preencha campo Slug corretamente!" );
+document.dados.slug.focus();
+return false;
+}
+
+if(document.dados.descricao.value=="" ||
+document.dados.descricao.value.length < 5)
+{
+alert( "Preencha campo Descrição corretamente!" );
+document.dados.descricao.focus();
+return false;
+}
+
+if(document.dados.conteudo.value=="" ||
+document.dados.conteudo.value.length < 10)
+{
+alert( "Preencha campo Conteudo corretamente!" );
+document.dados.conteudo.focus();
+return false;
+}
+
+return true;
+}
+</script>

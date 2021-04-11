@@ -1,0 +1,57 @@
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+    
+<div class="card">
+  <div class="card-body">
+    <h2>Atualizar Usuario</h2>
+<form action="/usuario/update" method="post">
+<label for="ID">ID:</label>
+    <input type="text" id="id" name="id" value="{{usuarios._id}}" class="form-control" minlength="10" disabled="true"> 
+<label for="Nome">Nome:</label>
+    <input type="text" id="nome" name="nome" value="{{usuarios.nome}}" class="form-control" required="true" minlength="10"> 
+<label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{usuarios.email}}" class="form-control" required="true" minlength="10"> 
+    <label for="Senha">Senha:</label>
+    <input type="password" id="senha" name="senha" class="form-control" placeholder="Defina uma senha." required="true" minlength="6"> 
+    <label for="Confirme sua senha">Confirme sua senha:</label>
+    <input type="password" id="senha2" name="senha2" class="form-control" placeholder="Confirme sua senha." required="true" minlength="6"> 
+    <br>
+    <div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  <label class="form-check-label" for="flexRadioDefault1">
+    Usuario Padrão:
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Usuario Admin:
+  </label>
+</div>
+    <hr>
+<button type="submit" class="btn btn-success">Atualizar</button>
+</form>
+  </div>
+</div>
+
+<script language="JavaScript" >
+
+var password = document.getElementById("senha")
+  , confirm_password = document.getElementById("senha2");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>

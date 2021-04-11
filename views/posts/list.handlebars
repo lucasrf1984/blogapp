@@ -1,0 +1,36 @@
+<h2>BlogApp - Postagens</h2>
+<hr>
+<a href="/postagem/add"><button class="btn btn-success">Novo post</button></a>
+<hr>
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
+{{#each posts}}
+
+		 <div class="card">
+  <div class="card-body">
+    <h4>{{titulo}}</h4> 
+    <br>
+    <small>Slug: {{slug}}</small>
+    <br>
+    <small>Categoria: {{categoria.nome}}</small>
+    <br>
+    <small>{{conteudo}}</small>
+    <br>
+    <small>Data de criação: {{date}}</small>
+    <hr>
+    <a href="/postagem/delete/{{_id}}"><button class="btn btn-danger ml-4">Delete</button></a>
+    <a href="/postagem/update/{{_id}}"><button class="btn btn-success ml-4">Atualizar</button></a>
+    <a href="/postagem/detail/{{_id}}"><button class="btn btn-info ml-4">Detalhes</button></a>
+  </div>
+</div>
+
+{{else}}
+
+<h1> Nenhuma postagem listada </h1>
+{{/each}}

@@ -1,0 +1,21 @@
+    <hr>
+<a href="/admin/categorias/add"><button class="btn btn-success">Nova Categoria</button></a>
+<hr>
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+		 <div class="card">
+  <div class="card-body">
+    <h4>{{categorias.nome}}</h4>
+    <small>ID: {{categorias._id}}</small>
+    <br>
+    <small>Slug: {{categorias.slug}}</small>
+    <br>
+    <small>Data de criação: {{categorias.date}}</small>
+        <hr>
+    <a href="/postagem"><button class="btn btn-danger ml-4">Voltar</button></a>
+    

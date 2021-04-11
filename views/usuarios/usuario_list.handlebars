@@ -1,0 +1,43 @@
+<hr>
+<a href="/usuario/add-form"><button class="btn btn-success">Novo Usuario</button></a>
+<hr>
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
+<div class="table-responsive">
+  <table class="table table-sm table-light">
+  <thead>
+    <tr>
+      <th scope="col">ID:</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Atualizar</th>
+      <th scope="col">Deletar</th>
+      <th scope="col">Detalhes</th>
+    </tr>
+  </thead>
+  {{#each usuarios}}
+  <tbody>
+    <tr>
+      <td>{{_id}}</td>
+      <td>{{nome}}</td>
+      <td>{{email}}</td>
+      <td><a href="/usuario/update/{{_id}}"><button class="btn btn-success ml-4">Atualizar</button></a></td>
+      <td><a href="/usuario/delete/{{_id}}"><button class="btn btn-danger ml-4">Deletar</button></a></td>
+      <td><a href="/usuario/detail/{{_id}}"><button class="btn btn-info ml-4">Detalhes</button></a></td>
+    </tr>
+    </tbody>
+    {{else}}
+    <h2> Não há usuarios cadastrados </h2>
+    <a href="/usuario"><button class="btn btn-danger ml-4">Voltar</button></a>
+    {{/each}}
+  </table>
+  <a href="/usuario"><button class="btn btn-danger ml-4">Voltar</button></a>
+</div>    
+
+ 

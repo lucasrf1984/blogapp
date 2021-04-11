@@ -1,0 +1,21 @@
+<h2>Detalhes da Postagem</h2>
+<hr>
+<a href="/postagem/add"><button class="btn btn-success">Criar post</button></a>
+<hr>  
+<div class="card">
+  <div class="card-body">
+    <h4>{{posts.titulo}}</h4>
+    <br>
+    <small>ID: {{posts._id}}</small>
+    <br>
+    <small>Slug: {{posts.slug}}</small>
+    <br>
+    <small>Categoria: {{posts.categoria.nome}}</small>
+    <br>
+    <small>Postagem: {{posts.conteudo}}</small>
+    <br>
+    <small>Data de criação: {{posts.date}}</small>
+    <hr>
+    <a href="/postagem"><button class="btn btn-danger ml-4">Voltar</button></a>
+  </div>
+</div>

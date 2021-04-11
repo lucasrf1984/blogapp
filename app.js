@@ -4,12 +4,18 @@ const handlebars = require('express-handlebars')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
 const app = express()
-const admin = require("./routes/admin")
+const admin = require('./routes/admin')
+const postagem = require('./routes/postagem')
+const usuario = require('./routes/usuario')
 const flash = require('connect-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-
+const { restart } = require('nodemon')
+require('./models/Postagem')
+require('./models/Categoria')
+const Postagem = mongoose.model("postagem")
+const Categoria = mongoose.model("categoria")
 
 //Configurações
 
@@ -55,6 +61,53 @@ const path = require('path')
 
 // Rotas
     app.use('/admin',admin)
+    app.use('/postagem',postagem)
+    app.use('/usuario',usuario)
+
+    app.get('/',(req,res)=> {
+        Postagem.find().populate("categoria").sort({date:"desc"}).then((posts)=> {
+            res.render('index', {posts: posts.map(posts => posts.toJSON())})
+        }).catch((err)=> {
+            req.flash(+err,"Erro ao listar postagens")
+            res.render('index')
+        })
+    })
+
+    app.get('/detail/:_id', (req, res) => {
+        Postagem.findOne(req.params.id).populate("categoria").sort({date: "desc"}).then((posts)=> {
+            res.render('detail', {posts: posts.toJSON()})
+          }).catch((erro)=> {
+            req.flash("error_msg", "Erro ao abri detalhes!!!"+erro)
+            res.redirect('/')
+          })
+    })
+
+    app.get('/categoriaslist', (req,res) => {
+        Postagem.find().then((categorias) => { 
+        res.render('categorias', {categorias: categorias.toJSON()})
+    }).catch((erro)=> {
+        req.flash("error_msg", "Erro ao listar categorias!!!"+erro)
+        res.redirect('/')
+    })
+})
+app.get('/categoria/filter/:slug', (req,res) => {
+    console.log(req.params.slug)
+        Categoria.findOne({slug: req.params.slug}).then((categoria)=>  { 
+            if(categoria)
+            {
+              Postagem.find({categoria: categoria._id }).then((posts)=> {
+                res.render('categorias_filtered', {posts: posts.map(posts => posts.toJSON())})
+              })
+            }else {
+                req.flash("error_msg", "Erro ao listar categorias!!!"+erro)
+                res.redirect('/categoriaslist')
+            }
+    }).catch((erro)=> {
+        req.flash("error_msg", "Erro ao listar categorias!!!"+erro)
+        console.log(erro)
+        res.redirect('/')
+    })
+})
 // Outros
 
 const webport = 8081

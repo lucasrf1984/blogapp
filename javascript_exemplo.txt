@@ -1,0 +1,37 @@
+function enviardados(){
+
+if (document.dados.titulo.value=="" ||
+ document.dados.titulo.value.length < 3)
+{
+alert( "Preencha campo Titulo corretamente!" );
+document.dados.titulo.focus();
+return false;
+}
+
+if(document.dados.slug.value=="" ||
+document.dados.slug.value.length < 3)
+{
+alert( "Preencha campo Slug corretamente!" );
+document.dados.slug.focus();
+return false;
+}
+
+if(document.dados.descricao.value=="" ||
+document.dados.descricao.value.length < 5)
+{
+alert( "Preencha campo Descrição corretamente!" );
+document.dados.descricao.focus();
+return false;
+}
+
+if(document.dados.conteudo.value=="" ||
+document.dados.conteudo.value.length < 10)
+{
+alert( "Preencha campo Conteudo corretamente!" );
+document.dados.conteudo.focus();
+return false;
+}
+
+return true;
+}
+</script>

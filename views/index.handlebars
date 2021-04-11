@@ -1,0 +1,24 @@
+<div class="jumbotron">
+  <h1 class="display-4">Bem vindo ao NodeJS - BlogApp</h1>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="#" role="button">Crie uma conta</a>
+</div>
+  <br class="my-4">
+<h2>Postagens Recentes:</h2>
+<br>
+{{#each posts}}
+<div class="card">
+  <div class="card-body">
+    <h4>{{titulo}}</h4> 
+    <p>{{descricao}}</p>
+        <a href="/detail/{{_id}}"><button class="btn btn-success ml-4">Saiba mais</button></a>
+    <hr>
+    <small>Categoria: {{categoria.nome}}</small> <br>
+    <small>Data de postagem: {{date}}</small>
+  </div>
+</div>
+
+{{else}}
+
+<h1> Nenhuma postagem listada </h1>
+{{/each}}   
