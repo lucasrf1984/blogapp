@@ -1,0 +1,39 @@
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
+    <div class="card">
+  <div class="card-body">
+    <h2>Defina uma nova senha</h2>
+<form action="/usuario/salvar-senha" method="post" name="dados"><br>
+<input type="hidden" name="id" value="{{usuarios._id}}"
+<label for="Senha">Nova Senha:</label>
+    <input type="password" id="senha" name="senha" placeholder="Defina sua senha" class="form-control" required="true" minlength="6"> 
+    <br>
+       <label for="Confirme sua senha">Confirme sua nova senha:</label>
+    <input type="password" id="senha2" name="senha2" class="form-control" placeholder="Confirme sua senha"required="true" minlength="6"> 
+    <hr>
+<button type="submit" class="btn btn-success">Alterar</button>
+</form>
+  </div>
+</div>
+<script language="JavaScript" >
+
+var password = document.getElementById("senha")
+  , confirm_password = document.getElementById("senha2");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>

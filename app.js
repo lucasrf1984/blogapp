@@ -6,10 +6,7 @@ const mongoose = require('mongoose')
 const app = express()
 const admin = require('./routes/admin')
 const postagem = require('./routes/postagem')
-<<<<<<< HEAD
 const usuario = require('./routes/usuario')
-=======
->>>>>>> e2586212f68fdbd2028987f3733f1ce38822876e
 const flash = require('connect-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -19,6 +16,8 @@ require('./models/Postagem')
 require('./models/Categoria')
 const Postagem = mongoose.model("postagem")
 const Categoria = mongoose.model("categoria")
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //Configurações
 
@@ -48,7 +47,7 @@ const Categoria = mongoose.model("categoria")
 
     //Mongoose
     mongoose.Promise = global.Promise;
-    mongoose.connect("mongodb://192.168.100.172/testdb",
+    mongoose.connect("mongodb://192.168.100.78/testdb",
     {useNewUrlParser: true, useUnifiedTopology: true }).then(function()
     {
         console.log("MongoDB Connected!!!")
@@ -65,21 +64,16 @@ const Categoria = mongoose.model("categoria")
 // Rotas
     app.use('/admin',admin)
     app.use('/postagem',postagem)
-<<<<<<< HEAD
     app.use('/usuario',usuario)
-=======
->>>>>>> e2586212f68fdbd2028987f3733f1ce38822876e
 
     app.get('/',(req,res)=> {
         Postagem.find().populate("categoria").sort({date:"desc"}).then((posts)=> {
             res.render('index', {posts: posts.map(posts => posts.toJSON())})
         }).catch((err)=> {
             req.flash(+err,"Erro ao listar postagens")
-<<<<<<< HEAD
             res.render('index')
-=======
             res.render('/index')
->>>>>>> e2586212f68fdbd2028987f3733f1ce38822876e
+
         })
     })
 
@@ -94,11 +88,8 @@ const Categoria = mongoose.model("categoria")
 
     app.get('/categoriaslist', (req,res) => {
         Postagem.find().then((categorias) => { 
-<<<<<<< HEAD
         res.render('categorias', {categorias: categorias.toJSON()})
-=======
         res.render('categorias', {categorias: categorias.map(categorias => categorias.toJSON())})
->>>>>>> e2586212f68fdbd2028987f3733f1ce38822876e
     }).catch((erro)=> {
         req.flash("error_msg", "Erro ao listar categorias!!!"+erro)
         res.redirect('/')

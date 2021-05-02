@@ -1,0 +1,19 @@
+    {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+    {{/if}}
+
+    {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+
+    <div class="card">
+  <div class="card-body">
+    <h2>Recuperar Senha</h2>
+<form action="/usuario/email-find" method="post"><br>
+<label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Digite o seu email" class="form-control" required="true" minlength="10"> 
+<br>
+<button type="submit" class="btn btn-success">Buscar</button>
+</form>
+  </div>
+</div>
